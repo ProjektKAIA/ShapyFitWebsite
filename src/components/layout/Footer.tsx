@@ -21,9 +21,8 @@ const SocialIcon = ({ icon }: { icon: string }) => {
     case 'tiktok':
       return (
         <svg className="w-6 h-6" viewBox="0 0 24 24">
-          <path fill="#25F4EE" d="M9.37 23.5v-14.1h3.87v14.1z"/>
-          <path fill="#FE2C55" d="M9.37 9.4V23.5c0-7.77 6.3-14.1 14.1-14.1h-3.87c-5.66 0-10.23 4.57-10.23 10.23z"/>
-          <path fill="white" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          <path fill="#25F4EE" d="M9.37 9.4v3.5a2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 1 0 2.89 2.9V2h3.45v.44a4.83 4.83 0 0 0 3.77 4.25v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 1 1-6.34-6.34 6.84 6.84 0 0 1 1.88.17z"/>
+          <path fill="#FE2C55" d="M10.55 8.23v4.67a2.93 2.93 0 0 0-.88-.13 2.89 2.89 0 1 0 2.89 2.9V.83h3.45v.44a4.83 4.83 0 0 0 3.77 4.25v3.4a8.16 8.16 0 0 1-4.77-1.52v7a6.34 6.34 0 1 1-6.34-6.34 6.84 6.84 0 0 1 1.88.17z"/>
         </svg>
       );
     default:
@@ -60,7 +59,7 @@ export function Footer() {
         ))}
         <a
           href={`mailto:${SITE_CONFIG.adsEmail}`}
-          className="text-white text-sm font-semibold bg-accent border border-accent px-4 py-1.5 rounded-full hover:bg-accent/80 transition-colors"
+          className="text-sm font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1.5 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all"
         >
           Werbeanfragen
         </a>
