@@ -65,20 +65,11 @@ export const metadata: Metadata = {
     siteName: SITE_CONFIG.name,
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'ShapyFit - Performance Tracking App',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    images: ['/og-image.jpg'],
   },
   alternates: {
     canonical: SITE_CONFIG.url,
