@@ -71,6 +71,23 @@ const FeatureIcon = ({ icon }: { icon: string }) => {
 export function Features() {
   return (
     <section className="w-full max-w-[1100px] mx-auto px-4 sm:px-8 py-12 sm:py-16">
+      {/* Privacy Block */}
+      <div className="mb-12 p-6 sm:p-8 rounded-3xl bg-green-500/5 border border-green-500/20 backdrop-blur-sm">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
+          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
+            <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 512 512">
+              <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-green-400">Deine Daten bleiben Deine</h3>
+            <p className="text-text-dim leading-relaxed text-sm">
+              Wir speichern keine personenbezogenen Daten und laden deine Daten auch nicht in die Cloud – außer du aktivierst es ganz bewusst selbst. Wir bevorzugen es, deine Daten lokal auf deinem Gerät zu speichern. Das bedeutet: <strong className="text-foreground">keine Hosting-Kosten, weniger Server, weniger Kosten, weniger Umweltbelastung</strong> – und deine Daten gehören nur dir.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {FEATURES.map((feature) => (
           <article
@@ -86,23 +103,6 @@ export function Features() {
             </p>
           </article>
         ))}
-      </div>
-
-      {/* Privacy Block */}
-      <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-green-500/5 border border-green-500/20 backdrop-blur-sm">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
-          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center">
-            <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 512 512">
-              <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8z"/>
-            </svg>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold mb-2 text-green-400">Deine Daten bleiben Deine</h3>
-            <p className="text-text-dim leading-relaxed text-sm">
-              Wir speichern keine personenbezogenen Daten und laden deine Daten auch nicht in die Cloud – außer du aktivierst es ganz bewusst selbst. Wir bevorzugen es, deine Daten lokal auf deinem Gerät zu speichern. Das bedeutet: <strong className="text-foreground">keine Hosting-Kosten, weniger Server, weniger Kosten, weniger Umweltbelastung</strong> – und deine Daten gehören nur dir.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

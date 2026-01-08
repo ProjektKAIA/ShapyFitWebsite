@@ -9,8 +9,8 @@ export const SITE_CONFIG = {
   tiktok: 'https://tiktok.com/@shapyfit.app',
   instagram: 'https://instagram.com/shapyfit.app',
   youtube: 'https://youtube.com/@shapyfit',
-  supportEmail: 'info@shapyfit.de',
-  adsEmail: 'info@shapyfit.de',
+  supportEmail: 'info@kaiashapes.de',
+  adsEmail: 'info@kaiashapes.de',
   year: new Date().getFullYear(),
 } as const;
 
