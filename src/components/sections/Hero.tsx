@@ -5,9 +5,9 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { SITE_CONFIG } from '@/lib/constants';
 
 const SCREENSHOTS = [
-  { src: '/app-screenshot.jpg', alt: 'ShapyFit App - Fitness Tracking Interface' },
-  { src: '/app-screenshot-2.jpg', alt: 'ShapyFit App - Workout Übersicht' },
-  { src: '/app-screenshot-3.jpg', alt: 'ShapyFit App - Fortschritt Statistiken' },
+  { src: '/app-screenshot.webp', alt: 'ShapyFit App - Fitness Tracking Interface' },
+  { src: '/app-screenshot-2.webp', alt: 'ShapyFit App - Workout Übersicht' },
+  { src: '/app-screenshot-3.webp', alt: 'ShapyFit App - Fortschritt Statistiken' },
 ];
 
 const AUTO_SLIDE_INTERVAL = 4000;

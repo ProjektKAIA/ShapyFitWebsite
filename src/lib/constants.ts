@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   name: 'ShapyFit',
-  title: 'ShapyFit | Full Premium Free',
-  description: 'Importiere deine GPT-Trainingspläne mit einem Klick oder erstelle Profi-Workouts direkt in der App. Komplett kostenlos.',
+  title: 'ShapyFit – Kostenlose Fitness App mit ChatGPT Trainingsplan Import',
+  description: 'Kostenlose Fitness App für Gym, Yoga & Calisthenics. Importiere ChatGPT Trainingspläne mit einem Klick. Mit Apple Health & Google Fit Sync. 100% gratis, keine Abos.',
   url: 'https://shapyfit.de',
   locale: 'de_DE',
   brand: 'KAIASHAPES',
