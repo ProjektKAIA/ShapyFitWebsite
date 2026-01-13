@@ -1,7 +1,76 @@
+'use client';
+
 import Image from 'next/image';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { SITE_CONFIG } from '@/lib/constants';
 
+const SCREENSHOTS = [
+  { src: '/app-screenshot.jpg', alt: 'ShapyFit App - Fitness Tracking Interface' },
+  { src: '/app-screenshot-2.jpg', alt: 'ShapyFit App - Workout Übersicht' },
+  { src: '/app-screenshot-3.jpg', alt: 'ShapyFit App - Fortschritt Statistiken' },
+];
+
+const AUTO_SLIDE_INTERVAL = 4000;
+
 export function Hero() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentIndex(index);
+  }, []);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % SCREENSHOTS.length);
+  }, []);
+
+  const goToPrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + SCREENSHOTS.length) % SCREENSHOTS.length);
+  }, []);
+
+  const resetInterval = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(goToNext, AUTO_SLIDE_INTERVAL);
+  }, [goToNext]);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(goToNext, AUTO_SLIDE_INTERVAL);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [goToNext]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isSwipe = Math.abs(distance) > minSwipeDistance;
+    if (isSwipe) {
+      if (distance > 0) {
+        goToNext();
+      } else {
+        goToPrev();
+      }
+      resetInterval();
+    }
+  };
+
   return (
     <section className="w-full max-w-[1100px] mx-auto px-4 sm:px-8 py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div className="text-center md:text-left order-2 md:order-1">
@@ -46,15 +115,49 @@ export function Hero() {
       </div>
       <div className="w-full max-w-[280px] mx-auto md:ml-auto order-1 md:order-2">
         <div className="relative">
-          <div className="bg-black border-[12px] border-gray-800 rounded-[45px] overflow-hidden shadow-2xl shadow-black/50">
-            <Image
-              src="/app-screenshot.jpg"
-              alt="ShapyFit App Screenshot - Fitness Tracking Interface"
-              width={280}
-              height={560}
-              className="w-full h-auto"
-              priority
-            />
+          <div
+            className="bg-black border-[12px] border-gray-800 rounded-[45px] overflow-hidden shadow-2xl shadow-black/50"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div className="relative w-full aspect-[9/19.5]">
+              {SCREENSHOTS.map((screenshot, index) => (
+                <div
+                  key={screenshot.src}
+                  className={`absolute inset-0 transition-opacity duration-500 ${
+                    index === currentIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <Image
+                    src={screenshot.src}
+                    alt={screenshot.alt}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dot Indicators */}
+          <div className="flex justify-center gap-2 mt-4">
+            {SCREENSHOTS.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  goToSlide(index);
+                  resetInterval();
+                }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'bg-accent w-6'
+                    : 'bg-gray-600 hover:bg-gray-500'
+                }`}
+                aria-label={`Gehe zu Screenshot ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </div>
