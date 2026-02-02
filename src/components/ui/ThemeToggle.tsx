@@ -1,43 +1,51 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = 'light' | 'dark';
+
+function getThemeFromStorage(): Theme {
+  if (typeof window === 'undefined') return 'light';
+  const stored = localStorage.getItem('theme') as Theme | null;
+  if (stored) return stored;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function subscribeToTheme(callback: () => void) {
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addEventListener('change', callback);
+  window.addEventListener('storage', callback);
+  return () => {
+    mediaQuery.removeEventListener('change', callback);
+    window.removeEventListener('storage', callback);
+  };
+}
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('system');
   const [mounted, setMounted] = useState(false);
 
+  const theme = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeFromStorage,
+    () => 'light' as Theme
+  );
+
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-    const stored = localStorage.getItem('theme') as Theme | null;
-    if (stored) {
-      setTheme(stored);
-      applyTheme(stored);
-    }
   }, []);
 
-  const applyTheme = (newTheme: Theme) => {
+  useEffect(() => {
+    if (!mounted) return;
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
-
-    if (newTheme === 'system') {
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (systemDark) {
-        root.classList.add('dark');
-      } else {
-        root.classList.add('light');
-      }
-    } else {
-      root.classList.add(newTheme);
-    }
-  };
+    root.classList.add(theme);
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     const nextTheme: Theme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
     localStorage.setItem('theme', nextTheme);
-    applyTheme(nextTheme);
+    window.dispatchEvent(new Event('storage'));
   };
 
   if (!mounted) {
